@@ -20,6 +20,8 @@ class AuthController extends Controller
     |
     */
 
+    protected $redirectTo = '/';
+
     use AuthenticatesAndRegistersUsers;
 
     /**
@@ -60,5 +62,11 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    protected function postLogin()
+    {
+        return  redirect('admin/users');
+
     }
 }
