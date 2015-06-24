@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     'tipos' => [
         'descripciones' => [
             1 => 'Especie',
@@ -9,5 +8,4 @@ return [
             3 => 'Tamaño'
         ],
     ],
-
 ];

@@ -69,7 +69,8 @@ class ItemsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $item = $this->itemRepo->find($id);
+        return view('admin.items.edit', compact('item'));
     }
 
     /**
@@ -78,9 +79,12 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update($id)
+    public function update($id,ItemCreateRequest $request)
     {
-        //
+        $data = $request->only('tipo', 'descripcion');
+        $item = $this->itemRepo->find($id);
+        $this->itemRepo->edit($item,$data);
+        return redirect()->route('admin.items.index');
     }
 
     /**
@@ -91,6 +95,9 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $flight = Item::find($id);
+
+        $flight->delete();
+        return redirect()->route('admin.items.index');
     }
 }

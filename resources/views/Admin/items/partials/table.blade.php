@@ -12,7 +12,7 @@
         <td>{{ $item->descripcion }}</td>
         <td>
             <a href="{{ route('admin.items.edit', $item) }}">Editar</a>
-            <a href="">Eliminar</a>
+            <a href="{{ route('admin.items.destroy', $item->id) }}">Eliminar</a>
         </td>
     </tr>
     @endforeach
