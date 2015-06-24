@@ -8,7 +8,8 @@
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">
-                    {!! Form::open(['route' => 'auth/register', 'class' => 'form']) !!}
+                    {!! Form::open(['route' => '
+                    auth/register', 'class' => 'form']) !!}
 
                     <div class="form-group">
                         <label>name</label>

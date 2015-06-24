@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Entities\User;
-
-use App\Http\Requests;
+use App\Http\Repositories\ItemRepo;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ItemCreateRequest;
 
-class UsersController extends Controller
+class ItemsController extends Controller
 {
+
+    protected $itemRepo;
+
+    public function __construct(ItemRepo $itemRepo)
+    {
+        $this->itemRepo = $itemRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,8 +23,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate();
-        return view('admin.users.index', compact('users'));
+        $items = $this->itemRepo->ListAndPaginate();
+        return view('admin.items.index', compact('items'));
     }
 
     /**
@@ -28,7 +34,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.items.create');
     }
 
     /**
@@ -36,9 +42,12 @@ class UsersController extends Controller
      *
      * @return Response
      */
-    public function store()
+    public function store(ItemCreateRequest $request)
     {
-        //
+        $data = $request->only('tipo', 'descripcion');
+        $item = $this->itemRepo->create($data);
+
+        return redirect()->route('admin.items.index');
     }
 
     /**

@@ -20,16 +20,11 @@ Route::get('home', [
     'uses' => 'HomeController@index'
 ]);
 
-// Authentication routes...
-Route::get('auth/login', 'Auth\AuthController@getLogin');
-Route::post('auth/login', ['as' =>'auth/login', 'uses' => 'Auth\AuthController@postLogin']);
-Route::get('auth/logout', ['as' => 'auth/logout', 'uses' => 'Auth\AuthController@getLogout']);
+require (__DIR__ . '/Routes/auth.php');
 
-// Registration routes...
-Route::get('auth/register', 'Auth\AuthController@getRegister');
-Route::post('auth/register', ['as' => 'auth/register', 'uses' => 'Auth\AuthController@postRegister']);
 
-Route::group(['prefix'=>'admin', 'namespace' => 'Admin'], function () {
+Route::group(['prefix'=>'admin', 'namespace' => 'Admin', 'middleware' => 'auth'], function () {
     Route::resource('index','IndexController');
     Route::resource('users','UsersController');
+    Route::resource('items','ItemsController');
 });
